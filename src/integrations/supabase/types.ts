@@ -107,33 +107,6 @@ export type Database = {
           },
         ]
       }
-      user_preferences: {
-        Row: {
-          budget: string
-          destination_slug: string | null
-          id: string
-          interests: string[]
-          session_id: string
-          updated_at: string
-        }
-        Insert: {
-          budget?: string
-          destination_slug?: string | null
-          id?: string
-          interests?: string[]
-          session_id: string
-          updated_at?: string
-        }
-        Update: {
-          budget?: string
-          destination_slug?: string | null
-          id?: string
-          interests?: string[]
-          session_id?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
       zones: {
         Row: {
           color: string
