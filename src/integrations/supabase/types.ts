@@ -14,7 +14,164 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      destinations: {
+        Row: {
+          country: string
+          created_at: string
+          description: string
+          id: string
+          image_key: string
+          lat: number
+          lng: number
+          name: string
+          slug: string
+        }
+        Insert: {
+          country: string
+          created_at?: string
+          description: string
+          id?: string
+          image_key: string
+          lat: number
+          lng: number
+          name: string
+          slug: string
+        }
+        Update: {
+          country?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_key?: string
+          lat?: number
+          lng?: number
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      places: {
+        Row: {
+          category: string
+          description: string
+          destination_id: string
+          id: string
+          image_key: string
+          lat: number
+          lng: number
+          name: string
+          price_level: number
+          rating: number
+          zone_id: string | null
+        }
+        Insert: {
+          category: string
+          description: string
+          destination_id: string
+          id?: string
+          image_key: string
+          lat: number
+          lng: number
+          name: string
+          price_level?: number
+          rating?: number
+          zone_id?: string | null
+        }
+        Update: {
+          category?: string
+          description?: string
+          destination_id?: string
+          id?: string
+          image_key?: string
+          lat?: number
+          lng?: number
+          name?: string
+          price_level?: number
+          rating?: number
+          zone_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "places_destination_id_fkey"
+            columns: ["destination_id"]
+            isOneToOne: false
+            referencedRelation: "destinations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "places_zone_id_fkey"
+            columns: ["zone_id"]
+            isOneToOne: false
+            referencedRelation: "zones"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_preferences: {
+        Row: {
+          budget: string
+          destination_slug: string | null
+          id: string
+          interests: string[]
+          session_id: string
+          updated_at: string
+        }
+        Insert: {
+          budget?: string
+          destination_slug?: string | null
+          id?: string
+          interests?: string[]
+          session_id: string
+          updated_at?: string
+        }
+        Update: {
+          budget?: string
+          destination_slug?: string | null
+          id?: string
+          interests?: string[]
+          session_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      zones: {
+        Row: {
+          color: string
+          description: string
+          destination_id: string
+          id: string
+          lat: number
+          lng: number
+          name: string
+        }
+        Insert: {
+          color?: string
+          description: string
+          destination_id: string
+          id?: string
+          lat: number
+          lng: number
+          name: string
+        }
+        Update: {
+          color?: string
+          description?: string
+          destination_id?: string
+          id?: string
+          lat?: number
+          lng?: number
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "zones_destination_id_fkey"
+            columns: ["destination_id"]
+            isOneToOne: false
+            referencedRelation: "destinations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
