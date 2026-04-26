@@ -18,17 +18,19 @@ export default function MobileShell() {
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.26, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <Outlet />
           </motion.div>
         </AnimatePresence>
       </main>
+
+      {/* Bottom Nav */}
       <nav
-        className="glass fixed bottom-0 left-1/2 z-40 w-full max-w-[440px] -translate-x-1/2 border-t border-border"
+        className="glass fixed bottom-0 left-1/2 z-40 w-full max-w-[440px] -translate-x-1/2 border-t border-border/60"
         style={{ paddingBottom: "var(--safe-bottom)" }}
       >
         <ul className="grid grid-cols-4">
@@ -39,7 +41,7 @@ export default function MobileShell() {
                 end={end}
                 className={({ isActive }) =>
                   cn(
-                    "flex flex-col items-center gap-1 py-3 text-[11px] font-medium transition-colors",
+                    "flex flex-col items-center gap-1 py-3 text-[10px] font-medium tracking-wide transition-all duration-200",
                     isActive ? "text-primary" : "text-muted-foreground"
                   )
                 }
@@ -48,13 +50,27 @@ export default function MobileShell() {
                   <>
                     <span
                       className={cn(
-                        "flex h-9 w-9 items-center justify-center rounded-full transition-all",
-                        isActive && "bg-primary-soft"
+                        "flex h-9 w-9 items-center justify-center rounded-2xl transition-all duration-300",
+                        isActive
+                          ? "bg-primary/15 glow-primary scale-110"
+                          : "hover:bg-muted"
                       )}
                     >
-                      <Icon className="h-5 w-5" strokeWidth={isActive ? 2.4 : 2} />
+                      {isActive && (
+                        <motion.span
+                          layoutId="nav-indicator"
+                          className="absolute h-9 w-9 rounded-2xl bg-primary/10"
+                          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                        />
+                      )}
+                      <Icon
+                        className={cn("h-[18px] w-[18px] relative z-10", isActive && "text-primary")}
+                        strokeWidth={isActive ? 2.2 : 1.8}
+                      />
                     </span>
-                    {label}
+                    <span className={cn("uppercase tracking-widest", isActive ? "text-primary" : "")}>
+                      {label}
+                    </span>
                   </>
                 )}
               </NavLink>
